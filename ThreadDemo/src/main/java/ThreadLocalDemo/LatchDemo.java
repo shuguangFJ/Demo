@@ -6,16 +6,16 @@ public class LatchDemo {
 
     public static void main(String[] args) throws InterruptedException {
         CountDownLatch countDownLatch = new CountDownLatch(6);
-        for (int i = 0; i < 5; i++) {
-            Thread thread = new Thread(new FirstBatch(countDownLatch));
-            thread.start();
-        }
+
 
         for (int i = 0; i < 5; i++) {
             Thread thread = new Thread(new SecondBatch(countDownLatch));
             thread.start();
         }
-
+        for (int i = 0; i < 5; i++) {
+            Thread thread = new Thread(new FirstBatch(countDownLatch));
+            thread.start();
+        }
         while (countDownLatch.getCount() != 1){
             Thread.sleep(100);
         }
